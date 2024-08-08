@@ -149,8 +149,10 @@ func (e encoder) writeValue(buf *buffer, value slog.Value) {
 		case fmt.Stringer:
 			e.writeColoredString(buf, v.String(), attrValue)
 			return
+		default:
+			e.writeColoredString(buf, fmt.Sprintf(`%+v`, value.Any()), attrValue)
+			return
 		}
-		fallthrough
 	case slog.KindString:
 		fallthrough
 	default:
