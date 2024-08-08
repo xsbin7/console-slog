@@ -146,6 +146,8 @@ func (e encoder) writeValue(buf *buffer, value slog.Value) {
 		case error:
 			e.writeColoredString(buf, v.Error(), e.opts.Theme.AttrValueError())
 			return
+		case []byte:
+			e.writeColoredString(buf, string(v), attrValue)
 		case fmt.Stringer:
 			e.writeColoredString(buf, v.String(), attrValue)
 			return
