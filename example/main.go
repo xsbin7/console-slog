@@ -5,10 +5,15 @@ import (
 	"log/slog"
 	"os"
 
-	"github.com/phsym/console-slog"
+	"github.com/xsbin7/console-slog"
 )
 
 func main() {
+	user := struct {
+		Name string
+		Age  int
+	}{Name: `a`, Age: 10}
+
 	logger := slog.New(
 		console.NewHandler(os.Stderr, &console.HandlerOptions{Level: slog.LevelDebug, AddSource: true}),
 	)
@@ -17,6 +22,8 @@ func main() {
 	slog.Debug("Debug message")
 	slog.Warn("Warning message")
 	slog.Error("Error message", "err", errors.New("the error"))
+
+	slog.Info(`user info`, `user`, user)
 
 	logger = logger.With("foo", "bar").
 		WithGroup("the-group").
